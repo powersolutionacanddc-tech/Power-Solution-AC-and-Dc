@@ -24,11 +24,8 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          packages: |
-            platform-tools
-            platforms;android-35
-            build-tools;35.0.0
-
+          
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
       - name: Extract Android project
         run: |
           unzip -q Power_Solutions_AC_DC_Android_Studio_Project.zip -d project
