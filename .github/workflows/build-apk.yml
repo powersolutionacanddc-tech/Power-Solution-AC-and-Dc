@@ -21,30 +21,28 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
-          
           packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+
       - name: Extract Android project
         run: |
           unzip -q Power_Solutions_AC_DC_Android_Studio_Project.zip -d project
 
       - name: Build Android APK
         run: |
-          GRADLEW=$(find project -type f -name gradlew -print -quit)
-          if [ -z "$GRADLEW" ]; then
-            echo "Gradle wrapper not found"
-            exit 1
-          fi
-          PROJECT_DIR=$(dirname "$GRADLEW")
-          cd "$PROJECT_DIR"
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          cd project/PowerSolutionsAndroid
+          gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Power-Solutions-AC-DC-APK
-          path: project/**/build/outputs/apk/debug/*.apk
+          path: project/PowerSolutionsAndroid/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
