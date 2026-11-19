@@ -3,6 +3,9 @@ name: Build POWER SOLUTIONS AC & DC APK
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -12,37 +15,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download project files
+      - name: Download repository files
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Extract new Android project
+        run: |
+          unzip -q POWER_SOLUTIONS_AC_DC_FINAL_SOURCE_v2.0.0.zip -d source
+          test -f source/PowerSolutionsAndroid/app/build.gradle
+
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Gradle
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle 8.9
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v4
-
-      - name: Install Android SDK packages
-        run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-
-      - name: Extract Android project
-        run: unzip -q Power_Solutions_AC_DC_Android_Studio_Project_UPDATED.zip -d project
-
-      - name: Build Android APK
-        run: |
-          cd project/PowerSolutionsAndroid
-          gradle assembleDebug
+      - name: Build APK
+        run: gradle -p source/PowerSolutionsAndroid assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Power-Solutions-AC-DC-APK
-          path: project/PowerSolutionsAndroid/app/build/outputs/apk/debug/*.apk
+          path: source/PowerSolutionsAndroid/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
