@@ -1,0 +1,22 @@
+POWER SOLUTIONS AC & DC — FINAL CONSOLIDATED SOURCE PACKAGE
+Version: 2.0.0
+
+Corrections and additions in this package:
+1. Transport fee is entered and displayed separately from item subtotal. It is included in the grand total when entered.
+2. VAT, grand total, amount paid and balance due are calculated automatically.
+3. Online payment is available as a payment method for recording confirmed payments.
+4. A payment receipt can be prepared directly from an invoice payment.
+5. Company information is printed in the document footer and the company banner remains in the app/document header.
+6. Added activity log for document changes, payments, sharing and stock receipt.
+7. Added document image sharing through Android's share chooser.
+8. Added text sharing and Android Print / Save as PDF.
+9. Added JSON business-data backup and restore.
+10. Removed a duplicate product-catalogue rendering function.
+11. Added Android FileProvider support for safe image sharing.
+12. Updated launcher icon, app version and setup instructions.
+
+Verification performed in this workspace:
+- JavaScript syntax check passed with Node.js.
+- Android XML files parsed successfully.
+- ZIP integrity check passed.
+- A full Android APK build was not run here because Gradle/Android SDK are not installed in this workspace. Use the included GitHub Actions workflow to build the APK.
