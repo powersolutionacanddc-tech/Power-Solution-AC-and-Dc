@@ -21,7 +21,7 @@ jobs:
       - name: Extract new Android project
         run: |
           unzip -q POWER_SOLUTIONS_AC_DC_FINAL_SOURCE_v2.0.0.zip -d source
-          test -f source/PowerSolutionsAndroid/app/build.gradle
+          test -f source/PowerSolutionsAndroid/app/build.gradle.kts
 
       - name: Set up Java 17
         uses: actions/setup-java@v4
